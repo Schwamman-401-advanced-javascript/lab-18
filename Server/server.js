@@ -14,9 +14,11 @@ server.on('connection', socket => {
 
   socket.on('file-save', data => {
     server.emit('file-save', data);
-  })
+  });
+
   socket.on('file-error', data => {
     server.emit('file-error', data);
-  })
+  });
+  
 });
 
