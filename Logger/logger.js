@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 'use strict';
 
 const socketIoClient = require('socket.io-client');
@@ -10,14 +11,22 @@ let errorCount = 1;
 const client = socketIoClient.connect(URL);
 console.log(`Connected to ${URL}`);
 
-client.on('data', data => {
-  let json = JSON.parse(data);
-  if (json.eventType === 'file-save') {
-    console.log(`Log ${logCount}:`, json);
-    logCount++;
-  } else if (json.eventType === 'file-error') {
-    console.log(`Error ${errorCount}:`, json);
-    errorCount++;
-  }
+client.on('file-save', data => {
+  let parsedData;
+  try {
+    parsedData = JSON.parse(data);
+  } catch(error) {}
   
+  console.log(`Saved Log ${logCount}:`, parsedData);
+  logCount++;  
+});
+
+client.on('file-error', data => {
+  let parsedData;
+  try {
+    parsedData = JSON.parse(data);
+  } catch(error) {}
+
+  console.log(`Error ${errorCount}:`, parsedData);
+  errorCount++;
 });

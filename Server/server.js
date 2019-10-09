@@ -10,6 +10,8 @@ console.log(`I know that you came to party baby, baby, baby, baby on ${PORT}`);
 server.on('connection', socket => {
   console.log(`New Connection: ${socket.id}`);
 
+  socket.emit(`Connected to server at http://localhost:${PORT}`);
+
   socket.on('file-save', data => {
     server.emit('file-save', data);
   })
@@ -18,8 +20,3 @@ server.on('connection', socket => {
   })
 });
 
-// setInterval(() => {
-//   let payload = uuid();
-//   console.log('chat', payload);
-//   server.emit('chat', payload);
-// }, 1000);
