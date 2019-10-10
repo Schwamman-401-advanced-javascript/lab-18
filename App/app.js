@@ -7,6 +7,7 @@ const toUpperCase = require('./modules/toUpperCase');
 require('./modules/logger');
 require('./modules/network-logger');
 require('./modules/socket-io-logger');
+require('./modules/q-logger');
 
 console.log('App is listening');
 

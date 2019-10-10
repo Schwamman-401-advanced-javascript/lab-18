@@ -1,24 +1,17 @@
 'use strict';
 
-const socketIO = require('socket.io');
-const uuid = require('uuid');
+const Q = require('@nmq/q/server');
+Q.start();
 
-const PORT = process.env.PORT || 3000;
-const server = socketIO(PORT);
-console.log(`I know that you came to party baby, baby, baby, baby on ${PORT}`);
+const db = new Q('database');
+db.monitorEvent('create');
+db.monitorEvent('read');
+db.monitorEvent('update');
+db.monitorEvent('delete');
+db.monitorEvent('error');
 
-server.on('connection', socket => {
-  console.log(`New Connection: ${socket.id}`);
-
-  socket.emit(`Connected to server at http://localhost:${PORT}`);
-
-  socket.on('file-save', data => {
-    server.emit('file-save', data);
-  });
-
-  socket.on('file-error', data => {
-    server.emit('file-error', data);
-  });
-  
-});
+const network = new Q('network');
+network.monitorEvent('connect');
+network.monitorEvent('attack');
+network.monitorEvent('no-service');
 

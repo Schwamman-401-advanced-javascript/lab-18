@@ -1,32 +1,22 @@
-/* eslint-disable no-empty */
 'use strict';
 
-const socketIoClient = require('socket.io-client');
+const Q = require('@nmq/q/client');
 
-const URL = process.env.URL || 'http://localHost:3000';
+const db = new Q('database');
+const net = new Q('network');
 
-let logCount = 1;
-let errorCount = 1;
-
-const client = socketIoClient.connect(URL);
-console.log(`Connected to ${URL}`);
-
-client.on('file-save', data => {
-  let parsedData;
-  try {
-    parsedData = JSON.parse(data);
-  } catch(error) {}
-  
-  console.log(`Saved Log ${logCount}:`, parsedData);
-  logCount++;  
+db.subscribe('update', payload => {
+  console.log('We gots an update:', payload);
 });
 
-client.on('file-error', data => {
-  let parsedData;
-  try {
-    parsedData = JSON.parse(data);
-  } catch(error) {}
+db.subscribe('read', payload => {
+  console.log('We gots something:', payload);
+});
 
-  console.log(`Error ${errorCount}:`, parsedData);
-  errorCount++;
+db.subscribe('error', payload => {
+  console.log('Something went wrong:', payload);
+});
+
+net.subscribe('attack', payload => {
+  console.log('You\'re under attack', payload);
 });

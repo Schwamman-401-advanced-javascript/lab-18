@@ -3,6 +3,7 @@
 const fs = require('fs');
 const { promisify } = require('util');
 const readFile = promisify(fs.readFile);
+const eventHub = require('./eventHub');
 
 /**
  * Reads file and returns file data
@@ -10,6 +11,7 @@ const readFile = promisify(fs.readFile);
  */
 async function getFile(file) {
   let data = await readFile(file);
+  eventHub.emit('get', file);
   return data;
 }
 
