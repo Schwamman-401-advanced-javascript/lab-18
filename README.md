@@ -1,11 +1,11 @@
-# lab-18
+# lab-19
 
 ## LAB: TCP Server / Message Application
 
 ### Author: Jonathon Schwamman
 
 ### Links and Resources
-* [submission PR](https://github.com/Schwamman-401-advanced-javascript/lab-18/pull/1)
+* [submission PR](https://github.com/Schwamman-401-advanced-javascript/lab-18/pull/2)
 * [travis](https://www.travis-ci.com/Schwamman-401-advanced-javascript/lab-18)
 
 ### Modules
